@@ -52,6 +52,7 @@ public class LinkController(ILinkService _service) : ControllerBase
     [HttpPost("add")]
     public async Task<IActionResult> Post(CreateLinkDTO model)
     {
+        var userId = User.Claims.
         var data = await _service.AddAsync(model);
         return Ok(data);
     }

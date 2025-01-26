@@ -73,7 +73,8 @@ public class UserService(IUserRepository _repo, IConfiguration _config, IMapper 
 
         var claims = new List<Claim>
         {
-            new (ClaimTypes.NameIdentifier, dto.Id.ToString())
+            new (ClaimTypes.NameIdentifier, dto.Id.ToString()),
+            new (ClaimTypes.Actor, dto.Id.ToString())
         };
 
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

@@ -6,4 +6,5 @@ namespace BLL.Services.Interfaces;
 
 public interface ILinkService : ICrud<Link, CreateLinkDTO>
 {
+    Task<Link> AddAsync(CreateLinkDTO dto, int userId);
 }
