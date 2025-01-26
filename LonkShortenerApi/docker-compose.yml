@@ -1,0 +1,39 @@
+version: '3.4'
+
+networks:
+  lonkshortener:
+
+services:
+  appdatabase:
+    container_name: application-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8002:1443
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=password@1111
+    networks:
+      - lonkshortener
+  lonkshortenerapi:
+    container_name: test-link-shortener
+    image: ${DOCKER_REGISTRY-}lonkshortenerapi
+    build:
+      context: .
+      dockerfile: LonkShortenerApi/Dockerfile
+    ports:
+      - 8001:80
+    depends_on:
+      - appdatabase
+    environment:
+      - DB_HOST=appdatabase
+      - DB_NAME=Links
+      - DB_SA_PASSWORD=password@1111
+      - TokenKey=hgsdkljfhgjklsfdhkglhfsdjklhgklajfndvcklfdsncowerpmrjncvondfjsklqcildasnhfsdalndopsandlsanlncldsgahjkbcgjasdvcvasjkasdn
+    networks:
+      - lonkshortener
+  linkshortenerapi:
+    image: ${DOCKER_REGISTRY-}linkshortenerapi
+    build:
+      context: .
+      dockerfile: LinkShortenerApi/Dockerfile
+
