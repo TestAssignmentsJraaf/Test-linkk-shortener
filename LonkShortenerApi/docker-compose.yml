@@ -19,7 +19,7 @@ services:
     image: ${DOCKER_REGISTRY-}lonkshortenerapi
     build:
       context: .
-      dockerfile: LonkShortenerApi/Dockerfile
+      dockerfile: LinkShortenerApi/Dockerfile
     ports:
       - 8001:80
     depends_on:
